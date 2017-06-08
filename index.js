@@ -54,6 +54,10 @@ function displayData(data) {
 }
 
 function watchButtons() {
+	$('.login-button').click(function(){
+		window.location.href = "https://api.instagram.com/oauth/authorize/?client_id=de4dc3c2635a47d7baa749ec8c1ccaa1&redirect_uri=https://sloanstewart.io/instlanta/search.html&response_type=token";
+	});
+
 	$('.js-search-form').submit(function(event) {
 		event.preventDefault();
 		var queryTarget = $(event.currentTarget).find('.js-query');
