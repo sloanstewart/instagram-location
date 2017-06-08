@@ -1,6 +1,6 @@
 /* global $ */ // Make Cloud9 happy about jquery junk.
 
-var API_URL = 'https://api.genius.com/search';
+var API_URL = 'https://api.instagram.com/v1/tags/search';
 var QUERY_HISTORY = null;
 var NEXT_PAGE_TOKEN = null;
 var PREV_PAGE_TOKEN = null;
@@ -17,10 +17,10 @@ var RESULT_HTML_TEMPLATE = (
 
 function getDataFromApi(searchTerm, callback, page) {
   var query = {
-  	// artist_name: 'Project Pat',
     q: searchTerm,
-    access_token: 'aI6Kv_dZywb1rLKlqHpkCkKAlugv1NywxMQizJogA8QyYXz3kY76AC08lB_CnSdH',
-    token_type: 'bearer'
+    access_token: '5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242',
+    // token_type: 'bearer',
+    scope: 'public_content'
   }
   QUERY_HISTORY = searchTerm;
   $.getJSON(API_URL, query, callback);
@@ -55,7 +55,7 @@ function displayData(data) {
 
 function watchButtons() {
 	$('.login-button').click(function(){
-		window.location.href = "https://api.instagram.com/oauth/authorize/?client_id=de4dc3c2635a47d7baa749ec8c1ccaa1&redirect_uri=https://sloanstewart.io/instlanta/search.html&response_type=token";
+		window.location.href = "https://api.instagram.com/oauth/authorize/?client_id=de4dc3c2635a47d7baa749ec8c1ccaa1&redirect_uri=https://sloanstewart.io/instlanta/search.html&response_type=token&scope=public_content";
 	});
 
 	$('.js-search-form').submit(function(event) {
