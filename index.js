@@ -42,8 +42,10 @@ function renderResult(result) {
   template.find(".js-profile-picture").html('<img class="profile-thumbnail" src='+result.user.profile_picture+'>').attr("href", 'https://www.instagram.com/'+result.user.username);
   template.find(".js-username").text(result.user.username).attr("href", 'https://www.instagram.com/'+result.user.username);
 	template.find(".js-date").text((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear());
-	template.find(".js-description").text(result.caption.text);
   template.find(".js-thumbnail").attr("src", result.images.low_resolution.url);
+  if (result.caption != null){
+  	template.find(".js-description").text(result.caption.text);
+  }
   return template;
 }
 
