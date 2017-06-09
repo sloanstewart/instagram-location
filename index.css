@@ -69,7 +69,6 @@ h2 {
 }
 
 .js-search-form {
-	/*padding: 0.5rem;*/
 }
 
 .textfield-group {
@@ -187,8 +186,12 @@ button:disabled {
 	color: #aaa;
 }
 
-.js-thumbnail{
+.js-image img{
 	width: 100%;
+}
+
+.video {
+	cursor: pointer;
 }
 
 .js-user-info {

@@ -9,10 +9,10 @@ var RESULT_HTML_TEMPLATE = (
   	'<div class="js-user-info">' +
   		'<a class="js-profile-picture" href="" target="_blank"></a><a class="js-username" href="" target="_blank"></a>' +
     '</div>' +
-    '<img class="js-thumbnail"><br>' +
+    '<div class="js-image" href="" target="_blank"></div>' +
     '<div class="result-info">' +
-    	'<p class="result-date"><span class="js-date"></span></p>' +
     	'<span class="js-description"></span>' +
+    	'<p class="result-date"><span class="js-date"></span></p>' +
     '</div>' +
   '</div>'
 );
@@ -42,7 +42,12 @@ function renderResult(result) {
   template.find(".js-profile-picture").html('<img class="profile-thumbnail" src='+result.user.profile_picture+'>').attr("href", 'https://www.instagram.com/'+result.user.username);
   template.find(".js-username").text(result.user.username).attr("href", 'https://www.instagram.com/'+result.user.username);
 	template.find(".js-date").text((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear());
-  template.find(".js-thumbnail").attr("src", result.images.low_resolution.url);
+	if (result.type === 'video'){
+		template.find(".js-image").html("<video controls loop class=video width=100% type=video/mp4 poster='"+result.images.low_resolution.url+"' src='"+result.videos.standard_resolution.url+"'></video>");
+	}
+	else {
+		template.find(".js-image").html('<a href="'+result.link+'" target="_blank"><img src="'+result.images.low_resolution.url+'"></a>');
+	}
   if (result.caption != null){
   	template.find(".js-description").text(result.caption.text);
   }
@@ -64,7 +69,7 @@ function displayData(data) {
 	if(PREV_PAGE_TOKEN !== (null || undefined))
 		{$('.js-prevpage').prop('disabled', false);}
 	else{$('.js-prevpage').prop('disabled', true);}
-	
+	$('.video').click(function(){this.paused?this.play():this.pause();});
 }
 
 function watchButtons() {
