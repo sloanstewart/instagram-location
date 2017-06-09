@@ -9,11 +9,13 @@
     </head>
     <body>
       <main>
-        <h1>Instagram photos by location</h1>
+        <h1>Instagram posts by location</h1>
+        <div class="page-description">
+         Click the map to set a marker, use <em>Distance</em> to set the search radius, and then click <em>Search</em> to find posts.
+         </div>
         <div class="map-container">
           <div id="map"></div>
         </div>
-        
         <form action="#" class="js-search-form">
           <!--<div class="textfield-group">-->
           <!--  <input type="text" class="js-query" maxlength="100" placeholder="Search Tag" value=""><br>-->
@@ -30,7 +32,7 @@
             <span class="bar"></span>
             <label for="js-lng"></label>
           </div>
-          <div class="textfield-group">
+          <div class="textfield-group distance">
             <label for="dst">Distance</label>
             <input type="range" id="dst" class="js-dst" min="1" max="5000" placeholder="Distance" value="1" oninput="distUpdate(value)">
             <output for="dst" id="js-dst-val">1</output>mi
@@ -38,18 +40,12 @@
 
            <button type="submit">Search</button> 
         </form>
-        <div class="page-description">
-         This is where the description and/or instructions should go. For now, see some direct links to the API below:
-         <ul>
-           <li><a href="https://api.instagram.com/v1/media/search?lat=33.759872&lng=-84.379236&distance=2000&access_token=5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242" target="_blank">Coord: 33.759872 , -84.379236 (Atlanta) </a></li>
-           <li><a href="https://api.instagram.com/v1/tags/search?q=atlanta&access_token=5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242&scope=public_content&callback=?" target="_blank">Tag: Atlanta</a></li>
-         </ul></div>
         <div class="js-search-results"></div>
         <!--<div class="lightbox">-->
         <!--  <div class="image-wrapper">-->
         <!--     <iframe class="ytplayer" type="text/html" src="" frameborder="0"></iframe>-->
         <!--  </div>-->
-        </div>
+        <!--</div>-->
         <!-- <button class="js-prevpage" type="button" disabled="true">Prev Results</button> -->
         <!--<button class="js-nextpage" type="button" disabled="true">More Results</button>-->
         
