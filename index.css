@@ -57,6 +57,18 @@ h2 {
 	font-size: 1.25rem;
 }
 
+.map-container{
+	width: 90%;
+	height: 20rem;
+	padding: 0;
+	margin: 1em;
+	border: 1px dotted black;
+}
+
+#map {
+	height: 100%;
+}
+
 .js-search-form {
 	padding: 0.5rem;
 }
@@ -66,7 +78,7 @@ h2 {
 	width: 90%;
 }
 
-.js-query {
+input {
 	font-size: inherit;
 	font-weight: inherit;
 	letter-spacing: inherit;
@@ -80,15 +92,15 @@ h2 {
 	transition: all 0.3s ease;
 }
 
-.js-query:focus, js-query:hover {
+input:focus, input:hover {
 	outline: none;
 }
 
 /* text input BOTTOM BARS ================================= */
 .bar 	{
 	position:relative;
-display:block; 
-width:; }
+	display:block; 
+}
 .bar:before, .bar:after 	{
   content:'';
   height:2px; 
@@ -107,16 +119,20 @@ width:; }
   right:50%; 
 }
 
-/* active state */
-.js-query:focus ~ .bar:before, .js-query:focus ~ .bar:after {
+/* input active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
   width:50%;
 }
+
+
+
 
 button {
 	font-weight: bold;
 	text-transform: uppercase;
 	color:rgb(0, 188, 212);
 	padding: 1.125rem;
+	margin: 2rem;
 	background: transparent;
 	border: 0;
 	border-radius: 2px;
@@ -145,10 +161,15 @@ button:disabled {
 	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
+.page-description ul {
+	text-align: left;
+}
+
 .js-search-results {
 }
 
 .result {
+	text-align: left;
 	padding: 0;
 	margin: 2rem auto;
 	overflow: auto;
@@ -159,16 +180,48 @@ button:disabled {
 
 .result-info {
 	padding: 0.5rem;
-	text-align: left;
 }
 
-.result-channel-date {
+.result-date {
 	font-size: 0.75rem;
 	margin: 0.5em 0;
+	color: #aaa;
 }
 
-.result img{
+.js-thumbnail{
 	width: 100%;
+}
+
+.js-user-info {
+	padding: 0.5em 0.5em 0.25em 0.5em;
+	border-bottom: 1px solid #fafafa;
+}
+
+.js-user-info a, .js-user-info a:focus, .js-user-info a:hover{
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.profile-thumbnail {
+	width: 2.5em;
+	height:2.5em;
+	padding:0;
+	margin:0;
+	border-radius: 50%;
+}
+
+.js-profile-picture {
+	display: inline-block;
+	width: 2.5em;
+	height:2.5em;
+	padding:0;
+	margin:0;
+}
+
+.js-username{
+	vertical-align: top;
+	display: inline-block;
+	padding: 0.5em 1em;
 }
 
 .lightbox {

@@ -1,45 +1,57 @@
 /* global $ */ // Make Cloud9 happy about jquery junk.
 
-var API_URL = 'https://api.instagram.com/v1/tags/search';
+var API_URL = 'https://api.instagram.com/v1/media/search';
 var QUERY_HISTORY = null;
 var NEXT_PAGE_TOKEN = null;
 var PREV_PAGE_TOKEN = null;
 var RESULT_HTML_TEMPLATE = (
   '<div class="result">' +
+  	'<div class="js-user-info">' +
+  		'<a class="js-profile-picture" href="" target="_blank"></a><a class="js-username" href="" target="_blank"></a>' +
+    '</div>' +
     '<img class="js-thumbnail"><br>' +
     '<div class="result-info">' +
-    	'<h2><a class="js-result-title" href="" target="_blank"></a></h2>' +
-    	'<p class="result-channel-date">By <a class="js-channel" href="" target="_blank"></a> on <span class="js-date"></span></p>' +
+    	'<p class="result-date"><span class="js-date"></span></p>' +
     	'<span class="js-description"></span>' +
     '</div>' +
   '</div>'
 );
 
-function getDataFromApi(searchTerm, callback, page) {
+function getDataFromApi(query, lat, lng, callback) {
   var query = {
-    q: searchTerm,
+    q: query,
+    lat: lat,
+    lng: lng,
+    distance: 5000,
     access_token: '5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242',
-    // token_type: 'bearer',
     scope: 'public_content'
-  }
-  QUERY_HISTORY = searchTerm;
-  $.getJSON(API_URL, query, callback);
+  };
+  // $.getJSON(API_URL, query, callback);
+  $.ajax({
+	  dataType: "jsonp", //must do this for the Instagram API to work via client side
+	  url: API_URL,
+	  data: query,
+	  success: callback
+	});
+	QUERY_HISTORY = query;
 }
 
 function renderResult(result) {
   var template = $(RESULT_HTML_TEMPLATE);
-  template.find(".js-result-title").text(result.title).attr("href", result.url);
-  template.find(".js-channel").text(result.primary_artist.name).attr("href", result.primary_artist.url);
-  template.find(".js-description").text(result.full_title);
-  template.find(".js-thumbnail").attr("src", result.header_image_thumbnail_url);
+  var date = new Date(parseInt(result.created_time, 10)*1000);
+  template.find(".js-profile-picture").html('<img class="profile-thumbnail" src='+result.user.profile_picture+'>').attr("href", 'https://www.instagram.com/'+result.user.username);
+  template.find(".js-username").text(result.user.username).attr("href", 'https://www.instagram.com/'+result.user.username);
+	template.find(".js-date").text((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear());
+	template.find(".js-description").text(result.caption.text);
+  template.find(".js-thumbnail").attr("src", result.images.low_resolution.url);
   return template;
 }
 
 function displayData(data) {
 	console.log('API RESPONSE: \n');
 	console.dir(data);
-	var results = data.response.hits.map(function(item, index) {
-				return renderResult(item.result);
+	var results = data.data.map(function(item, index) {
+				return renderResult(item);
 	});
 	$('.js-search-results').append(results);
 	// store page tokens to be used with buttons
@@ -62,11 +74,13 @@ function watchButtons() {
 		event.preventDefault();
 		var queryTarget = $(event.currentTarget).find('.js-query');
 		var query = queryTarget.val();
+		var lat = $(event.currentTarget).find('.js-lat').val();
+		var lng = $(event.currentTarget).find('.js-lng').val();
 		// clear out the input
 		queryTarget.val("");
 		// clear out search results
 		$('.js-search-results').empty();
-		getDataFromApi(query, displayData);
+		getDataFromApi(query, lat, lng, displayData);
 	});
   	$('.js-nextpage').unbind().click(function(){
 		console.log('[More Results]');
@@ -80,6 +94,10 @@ function watchButtons() {
 }
 
 $(watchButtons);
+function distUpdate(val) {
+	var km = 1.60934;
+	document.querySelector('#js-dst-val').value = Math.round(val / km);
+}
 
 $(document).click(function(event){
 	// console.log(event.target);

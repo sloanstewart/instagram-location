@@ -4,38 +4,61 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Instlanta</title>
-        <script
-          src="https://code.jquery.com/jquery-3.2.1.min.js"
-          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-          crossorigin="anonymous"></script>
         <link href="index.css" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     </head>
     <body>
       <main>
-        <h1>Checkout these sweet pics tho</h1>
-          <form action="#" class="js-search-form">
-            <div class="textfield-group">
-              <input type="text" class="js-query" maxlength="100" placeholder="Search" value="">
-              <span class="highlight"></span>
-              <span class="bar"></span>
-              <label for="query"></label>
-            </div>
+        <h1>Instagram photos by location</h1>
+        <div class="map-container">
+          <div id="map"></div>
+        </div>
+        
+        <form action="#" class="js-search-form">
+          <!--<div class="textfield-group">-->
+          <!--  <input type="text" class="js-query" maxlength="100" placeholder="Search Tag" value=""><br>-->
+          <!--  <span class="bar"></span>-->
+          <!--  <label for="js-query"></label>-->
+          <!--</div>-->
+          <div class="textfield-group">
+            <input type="text" class="js-lat" maxlength="100" placeholder="Latitude" value=""><br>
+            <span class="bar"></span>
+            <label for="js-lat"></label>
+          </div>
+          <div class="textfield-group">
+            <input type="text" class="js-lng" maxlength="100" placeholder="Longitude" value="">
+            <span class="bar"></span>
+            <label for="js-lng"></label>
+          </div>
+          <div class="textfield-group">
+            <label for="dst">Distance</label>
+            <input type="range" id="dst" class="js-dst" min="1" max="5000" placeholder="Distance" value="1" oninput="distUpdate(value)">
+            <output for="dst" id="js-dst-val">1</output>mi
+          </div>
 
-            <!-- <button type="submit">Search</button> -->
-          </form>
-          <div class="page-description">
-           Description blah blah blah</a>
-          </div>
-          <div class="js-search-results"></div>
-          <div class="lightbox">
-            <div class="image-wrapper">
-               <iframe class="ytplayer" type="text/html" src="" frameborder="0"></iframe>
-            </div>
-          </div>
-          <!-- <button class="js-prevpage" type="button" disabled="true">Prev Results</button> -->
-          <button class="js-nextpage" type="button" disabled="true">More Results</button>
+           <button type="submit">Search</button> 
+        </form>
+        <div class="page-description">
+         This is where the description and/or instructions should go. For now, see some direct links to the API below:
+         <ul>
+           <li><a href="https://api.instagram.com/v1/media/search?lat=33.759872&lng=-84.379236&distance=2000&access_token=5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242" target="_blank">Coord: 33.759872 , -84.379236 (Atlanta) </a></li>
+           <li><a href="https://api.instagram.com/v1/tags/search?q=atlanta&access_token=5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242&scope=public_content&callback=?" target="_blank">Tag: Atlanta</a></li>
+         </ul></div>
+        <div class="js-search-results"></div>
+        <!--<div class="lightbox">-->
+        <!--  <div class="image-wrapper">-->
+        <!--     <iframe class="ytplayer" type="text/html" src="" frameborder="0"></iframe>-->
+        <!--  </div>-->
+        </div>
+        <!-- <button class="js-prevpage" type="button" disabled="true">Prev Results</button> -->
+        <!--<button class="js-nextpage" type="button" disabled="true">More Results</button>-->
+        
+    
       </main>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
       <script src="index.js"></script>
+      <script src="map.js"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ40uqDWb1VjfXltRTNKW9YGicS6J38yk&callback=initMap"
+    async defer></script>
     </body>
 </html>
