@@ -45,6 +45,7 @@ main {
 @media only screen and (min-width: 2560px) {
 	main {
 		max-width: 2048px;
+		
 	}
 }
 
