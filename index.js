@@ -77,6 +77,12 @@ function watchButtons() {
 		window.location.href = "https://api.instagram.com/oauth/authorize/?client_id=de4dc3c2635a47d7baa749ec8c1ccaa1&redirect_uri=https://sloanstewart.io/instlanta/search.html&response_type=token&scope=public_content";
 	});
 
+function scrollToResults(){
+		$('html, body').animate({
+		scrollTop: $('.js-search-results').offset().top
+		},1000);
+}
+
 	$('.js-search-form').submit(function(event) {
 		event.preventDefault();
 		var queryTarget = $(event.currentTarget).find('.js-query');
@@ -88,6 +94,7 @@ function watchButtons() {
 		// clear out search results
 		$('.js-search-results').empty();
 		getDataFromApi(query, lat, lng, displayData);
+		scrollToResults();
 	});
   	$('.js-nextpage').unbind().click(function(){
 		console.log('[More Results]');
