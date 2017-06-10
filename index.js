@@ -43,10 +43,10 @@ function renderResult(result) {
   template.find(".js-username").text(result.user.username).attr("href", 'https://www.instagram.com/'+result.user.username);
 	template.find(".js-date").text((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear());
 	if (result.type === 'video'){
-		template.find(".js-image").html("<video controls loop class=video width=100% type=video/mp4 poster='"+result.images.low_resolution.url+"' src='"+result.videos.standard_resolution.url+"'></video>");
+		template.find(".js-image").html("<video controls loop class=video width=100% type=video/mp4 poster='"+result.images.standard_resolution.url+"' src='"+result.videos.standard_resolution.url+"'></video>");
 	}
 	else {
-		template.find(".js-image").html('<a href="'+result.link+'" target="_blank"><img src="'+result.images.low_resolution.url+'"></a>');
+		template.find(".js-image").html('<a href="'+result.link+'" target="_blank"><img src="'+result.images.standard_resolution.url+'"></a>');
 	}
   if (result.caption != null){
   	template.find(".js-description").text(result.caption.text);
