@@ -17,12 +17,12 @@ var RESULT_HTML_TEMPLATE = (
   '</div>'
 );
 
-function getDataFromApi(query, lat, lng, callback) {
+function getDataFromApi(query, lat, lng, dist, callback) {
   var query = {
     q: query,
     lat: lat,
     lng: lng,
-    distance: 5000,
+    distance: dist,
     access_token: '5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242',
     scope: 'public_content'
   };
@@ -89,11 +89,12 @@ function scrollToResults(){
 		var query = queryTarget.val();
 		var lat = $(event.currentTarget).find('.js-lat').val();
 		var lng = $(event.currentTarget).find('.js-lng').val();
+		var dist = $(event.currentTarget).find('.dist').val();
 		// clear out the input
 		queryTarget.val("");
 		// clear out search results
 		$('.js-search-results').empty();
-		getDataFromApi(query, lat, lng, displayData);
+		getDataFromApi(query, lat, lng, dist, displayData);
 		scrollToResults();
 	});
   	$('.js-nextpage').unbind().click(function(){
@@ -109,8 +110,8 @@ function scrollToResults(){
 
 $(watchButtons);
 function distUpdate(val) {
-	var km = 1.60934;
-	document.querySelector('#js-dst-val').value = Math.round(val / km);
+	var mile = 0.000621371; // one mile in meters
+	document.querySelector('#js-dst-val').value = Math.round(val * mile);
 }
 
 $(document).click(function(event){
