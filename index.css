@@ -110,7 +110,7 @@ input:focus, input:hover {
   width:0;
   bottom:1px; 
   position:absolute;
-  background:rgb(0, 188, 212); 
+  background: rgba(0, 188, 212,1);
   transition:0.2s ease all; 
   -moz-transition:0.2s ease all; 
   -webkit-transition:0.2s ease all;
@@ -138,17 +138,22 @@ input:focus ~ .bar:before, input:focus ~ .bar:after {
 button {
 	font-weight: bold;
 	text-transform: uppercase;
-	color:rgb(0, 188, 212);
+	color: #fafafa;
 	padding: 1.125rem;
 	margin: 2rem;
-	background: transparent;
+	background: rgba(0, 188, 212, 0.6);
 	border: 0;
 	border-radius: 2px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
 	transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
 
 button:focus:enabled, button:hover:enabled{
-	background:rgba(153,153,153,0.2);
+	background: rgba(0, 188, 212, 1);
+}
+
+button:active:enabled{
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 button:disabled {
