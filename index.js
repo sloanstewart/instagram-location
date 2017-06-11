@@ -1,5 +1,67 @@
 /* global $ */ // Make Cloud9 happy about jquery junk.
 
+
+// GOOGLE MAP MAGIC!
+
+// Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see the error "The Geolocation service
+// failed.", it means you probably did not give permission for the browser to
+// locate you.
+var map, infoWindow;
+function initMap() {
+    var marker = null;
+    var distRadius = null;
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 33.7700000, lng: -84.3500000}, // Should be close to the center of the universe, er...Atlanta.
+      zoom: 10
+    });
+    infoWindow = new google.maps.InfoWindow;
+   
+   // This event listener calls addMarker() when the map is clicked.
+    google.maps.event.addListener(map, 'click', function(event) {
+      addMarker(event.latLng);
+      addRadius(event.latLng);
+    });
+    
+    // Deletes previous marker and adds new marker to the map.
+    function addMarker(location) {
+        if (marker != null){
+            marker.setMap(null);
+        }
+        marker = new google.maps.Marker({
+            position: location,
+            map: map,
+            title: 'dat marker tho'
+        });
+        marker.setMap(map);
+        // Get position of marker and round the lat & lng to numbers that work with Instagram API.
+        var lat = parseFloat(Math.round(marker.getPosition().lat() * 100) / 100).toFixed(7);
+        var lng = parseFloat(Math.round(marker.getPosition().lng() * 100) / 100).toFixed(7);
+        console.log('Marker set at '+lat+','+lng);
+        $('.js-lat').val(lat);
+        $('.js-lng').val(lng);
+    }
+    
+    function addRadius(location){
+        console.info();
+        if (distRadius != null){
+            distRadius.setMap(null);
+        }
+        distRadius = new google.maps.Circle({
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 0,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35,
+            map: map,
+            center: location,
+            radius: Number($('.js-dst').val())
+         });
+    }
+}
+
+// NOW LEAVING GOOGLE MAP MAGIC!
+
 var API_URL = 'https://api.instagram.com/v1/media/search';
 var QUERY_HISTORY = null;
 var NEXT_PAGE_TOKEN = null;
@@ -17,12 +79,12 @@ var RESULT_HTML_TEMPLATE = (
   '</div>'
 );
 
-function getDataFromApi(query, lat, lng, dist, callback) {
+function getDataFromApi(query, lat, lng, dst, callback) {
   var query = {
     q: query,
     lat: lat,
     lng: lng,
-    distance: dist,
+    distance: dst,
     access_token: '5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242',
     scope: 'public_content'
   };
@@ -55,21 +117,27 @@ function renderResult(result) {
 }
 
 function displayData(data) {
-	console.log('API RESPONSE: \n');
-	console.dir(data);
-	var results = data.data.map(function(item, index) {
+	if (data.data.length !== 0){
+		console.log('API RESPONSE: \n');
+		console.dir(data);
+		var results = data.data.map(function(item, index) {
 				return renderResult(item);
-	});
-	$('.js-search-results').append(results);
-	// store page tokens to be used with buttons
-	NEXT_PAGE_TOKEN = data.nextPageToken;
-	PREV_PAGE_TOKEN = data.prevPageToken;
-	// if the tokens are stored, enable the buttons
-	if(NEXT_PAGE_TOKEN){$('.js-nextpage').prop('disabled', false);}
-	if(PREV_PAGE_TOKEN !== (null || undefined))
-		{$('.js-prevpage').prop('disabled', false);}
-	else{$('.js-prevpage').prop('disabled', true);}
-	$('.video').click(function(){this.paused?this.play():this.pause();});
+		});
+		$('.js-search-results').append(results);
+		// store page tokens to be used with buttons
+		NEXT_PAGE_TOKEN = data.nextPageToken;
+		PREV_PAGE_TOKEN = data.prevPageToken;
+		// if the tokens are stored, enable the buttons
+		if(NEXT_PAGE_TOKEN){$('.js-nextpage').prop('disabled', false);}
+		if(PREV_PAGE_TOKEN !== (null || undefined))
+			{$('.js-prevpage').prop('disabled', false);}
+		else{$('.js-prevpage').prop('disabled', true);}
+		$('.video').click(function(){this.paused?this.play():this.pause();});
+	}
+	else {
+		console.error('No good data found!');
+	}
+	
 }
 
 function watchButtons() {
@@ -89,12 +157,12 @@ function scrollToResults(){
 		var query = queryTarget.val();
 		var lat = $(event.currentTarget).find('.js-lat').val();
 		var lng = $(event.currentTarget).find('.js-lng').val();
-		var dist = $(event.currentTarget).find('.dist').val();
+		var dst = $(event.currentTarget).find('.js-dst').val();
 		// clear out the input
 		queryTarget.val("");
 		// clear out search results
 		$('.js-search-results').empty();
-		getDataFromApi(query, lat, lng, dist, displayData);
+		getDataFromApi(query, lat, lng, dst, displayData);
 		scrollToResults();
 	});
   	$('.js-nextpage').unbind().click(function(){
@@ -111,16 +179,5 @@ function scrollToResults(){
 $(watchButtons);
 function distUpdate(val) {
 	var mile = 0.000621371; // one mile in meters
-	document.querySelector('#js-dst-val').value = Math.round(val * mile);
+	$('#js-dst-val').val(Math.round(val * mile));
 }
-
-$(document).click(function(event){
-	// console.log(event.target);
-	if(!$(event.target).closest('.lightbox').length) {
-		if($('.ytplayer').is(":visible")) {
-			$('.ytplayer').attr("src", "");
-        	$('.lightbox').fadeOut();
-    	}
-    }
-        event.stopPropagation(); // Tried to get away without using this to no avail!
-});
