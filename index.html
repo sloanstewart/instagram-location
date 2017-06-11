@@ -11,7 +11,7 @@
       <main>
         <h1>Instagram posts by location</h1>
         <div class="page-description">
-         Click the map to set a marker, use <em>Distance</em> to set the search radius, and then click <em>Search</em> to find posts.
+         Click the map to set a marker, use <em>Radius</em> to set the search radius, and then click <em>Search</em> to find posts.
          </div>
         <div class="map-container">
           <div id="map"></div>
@@ -32,27 +32,17 @@
             <span class="bar"></span>
             <label for="js-lng"></label>
           </div>
-          <div class="textfield-group distance">
-            <input type="range" id="dst" class="js-dst" min="1610" max="5000" step="0.5" placeholder="Distance" value="1" oninput="distUpdate(value)">
-            <label for="dst">Distance: <output for="dst" id="js-dst-val">1</output>mi</label>
+          <div class="textfield-group radius">
+            <input type="range" id="radius" class="js-radius" min="1610" max="5000" step="100" placeholder="Radius" value="1" oninput="radiusUpdate(this.value)">
+            <label for="radius">Radius: <output for="radius" id="js-radius-val">1</output>mi</label>
           </div>
-
            <button type="submit">Search</button> 
         </form>
         <div class="js-search-results"></div>
-        <!--<div class="lightbox">-->
-        <!--  <div class="image-wrapper">-->
-        <!--     <iframe class="ytplayer" type="text/html" src="" frameborder="0"></iframe>-->
-        <!--  </div>-->
-        <!--</div>-->
-        <!-- <button class="js-prevpage" type="button" disabled="true">Prev Results</button> -->
-        <!--<button class="js-nextpage" type="button" disabled="true">More Results</button>-->
-        
-    
       </main>
       <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-      <script src="index.js"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQ40uqDWb1VjfXltRTNKW9YGicS6J38yk&callback=initMap"
     async defer></script>
+    <script src="index.js"></script>
     </body>
 </html>

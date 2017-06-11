@@ -1,16 +1,15 @@
 /* global $ */ // Make Cloud9 happy about jquery junk.
 
-
 // GOOGLE MAP MAGIC!
-
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
-var map, infoWindow;
+var map;
+var marker = null;
+var radius = null;
 function initMap() {
-    var marker = null;
-    var distRadius = null;
+    
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 33.7700000, lng: -84.3500000}, // Should be close to the center of the universe, er...Atlanta.
       zoom: 10
@@ -44,10 +43,10 @@ function initMap() {
     
     function addRadius(location){
         console.info();
-        if (distRadius != null){
-            distRadius.setMap(null);
+        if (radius != null){
+            radius.setMap(null);
         }
-        distRadius = new google.maps.Circle({
+        radius = new google.maps.Circle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
             strokeWeight: 0,
@@ -55,11 +54,11 @@ function initMap() {
             fillOpacity: 0.35,
             map: map,
             center: location,
-            radius: Number($('.js-dst').val())
+            radius: Number($('.js-radius').val())
          });
+         console.log(radius.radius);
     }
 }
-
 // NOW LEAVING GOOGLE MAP MAGIC!
 
 var API_URL = 'https://api.instagram.com/v1/media/search';
@@ -79,12 +78,12 @@ var RESULT_HTML_TEMPLATE = (
   '</div>'
 );
 
-function getDataFromApi(query, lat, lng, dst, callback) {
+function getDataFromApi(query, lat, lng, rad, callback) {
   var query = {
     q: query,
     lat: lat,
     lng: lng,
-    distance: dst,
+    distance: rad,
     access_token: '5574247135.de4dc3c.19d7fe308e5145c4b2a9d83c233c3242',
     scope: 'public_content'
   };
@@ -157,12 +156,12 @@ function scrollToResults(){
 		var query = queryTarget.val();
 		var lat = $(event.currentTarget).find('.js-lat').val();
 		var lng = $(event.currentTarget).find('.js-lng').val();
-		var dst = $(event.currentTarget).find('.js-dst').val();
+		var rad = $(event.currentTarget).find('.js-radius').val();
 		// clear out the input
 		queryTarget.val("");
 		// clear out search results
 		$('.js-search-results').empty();
-		getDataFromApi(query, lat, lng, dst, displayData);
+		getDataFromApi(query, lat, lng, rad, displayData);
 		scrollToResults();
 	});
   	$('.js-nextpage').unbind().click(function(){
@@ -177,7 +176,8 @@ function scrollToResults(){
 }
 
 $(watchButtons);
-function distUpdate(val) {
-	var mile = 0.000621371; // one mile in meters
-	$('#js-dst-val').val(Math.round(val * mile));
+function radiusUpdate(val) { // Displays radius value as miles
+	var miles = Math.round(val * 0.000621371); // one mile in meters
+	$('#js-radius-val').val(miles);
+	radius.setRadius(Number(val));
 }
