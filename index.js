@@ -297,6 +297,8 @@ function displayData(data) {
 	if (data.data.length !== 0){
 		console.log('API RESPONSE: \n');
 		console.dir(data);
+		// display count of posts found
+		$(".js-result-count").text(data.data.length+' posts found');
 		var results = data.data.map(function(item, index) {
 				return renderResult(item);
 		});
