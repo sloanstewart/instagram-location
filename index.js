@@ -30,16 +30,16 @@ function initMap() {
         marker = new google.maps.Marker({
             position: location,
             map: map,
-            title: 'dat marker tho'
+            draggable: true, // User can drag marker to new position
+            title: ''
         });
         marker.setMap(map);
-        // Get position of marker and round the lat & lng to numbers that work with Instagram API.
-        var lat = parseFloat(Math.round(marker.getPosition().lat() * 100) / 100).toFixed(7);
-        var lng = parseFloat(Math.round(marker.getPosition().lng() * 100) / 100).toFixed(7);
-        console.log('Marker set at '+lat+','+lng);
-        $('.js-lat').val(lat);;
-        $('.js-lng').val(lng);
+        setCoords();
         $('.search-button').prop('disabled', false);
+        marker.addListener('dragend', function(event) {
+            setCoords();
+        });
+    
     }
     
     function addRadius(location){
@@ -57,7 +57,17 @@ function initMap() {
             center: location,
             radius: Number($('.js-radius').val())
          });
+         radius.bindTo("center", marker, "position"); // Radius is bound to Marker
          console.log(radius.radius);
+    }
+    
+    function setCoords () {
+        // Get position of marker and round the lat & lng to numbers that work with Instagram API.
+        var lat = parseFloat(Math.round(marker.getPosition().lat() * 100) / 100).toFixed(7);
+        var lng = parseFloat(Math.round(marker.getPosition().lng() * 100) / 100).toFixed(7);
+        console.log('Marker set at '+lat+','+lng);
+        $('.js-lat').val(lat);;
+        $('.js-lng').val(lng);
     }
 }
 // NOW LEAVING GOOGLE MAP MAGIC!
