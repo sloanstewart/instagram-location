@@ -79,8 +79,11 @@ var PREV_PAGE_TOKEN = null;
 var RESULT_HTML_TEMPLATE = (
   '<div class="result">' +
   	'<div class="js-user-info">' +
-  		'<a class="js-profile-picture" href="" target="_blank"></a><a class="js-username" href="" target="_blank"></a>' +
-  			'<a class="js-location" href="" target="_blank"></a>' +
+  		'<a class="js-profile-picture" href="" target="_blank"></a>' +
+  		    '<div class="js-user-details">' +
+      		'<a class="js-username" href="" target="_blank"></a><br>' +
+      	    '<a class="js-location" href="" target="_blank"></a>' +
+  	    '</div>' +
     '</div>' +
     '<div class="js-image" href="" target="_blank"></div>' +
     '<div class="result-info">' +
