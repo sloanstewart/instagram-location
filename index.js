@@ -87,7 +87,8 @@ var RESULT_HTML_TEMPLATE = (
     '</div>' +
     '<div class="js-image" href="" target="_blank"></div>' +
     '<div class="result-info">' +
-    	'<span class="js-description"></span>' +
+        '<p class="js-likes"></p>' +
+    	'<p class="js-description"></p>' +
     	'<p class="result-date"><span class="js-date"></span></p>' +
     '</div>' +
   '</div>'
@@ -118,16 +119,17 @@ function renderResult(result) {
     template.find(".js-profile-picture").html('<img class="profile-thumbnail" src='+result.user.profile_picture+'>').attr("href", 'https://www.instagram.com/'+result.user.username);
     template.find(".js-username").text(result.user.username).attr("href", 'https://www.instagram.com/'+result.user.username);
     template.find(".js-location").text(result.location.name).attr("href", 'https://www.instagram.com/explore/locations/'+result.location.id);
-	template.find(".js-date").text((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear());
 	if (result.type === 'video'){
 		template.find(".js-image").html("<video controls loop class=video width=100% type=video/mp4 poster='"+result.images.standard_resolution.url+"' src='"+result.videos.standard_resolution.url+"'></video>");
 	}
 	else {
 		template.find(".js-image").html('<a href="'+result.link+'" target="_blank"><img src="'+result.images.standard_resolution.url+'"></a>');
 	}
-  if (result.caption != null){
-  	template.find(".js-description").text(result.caption.text);
-  }
+    if (result.caption != null){
+      template.find(".js-description").text(result.caption.text);
+    }
+    template.find(".js-likes").text(result.likes.count+' Likes');
+    template.find(".js-date").text((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear());
   return template;
 }
 
