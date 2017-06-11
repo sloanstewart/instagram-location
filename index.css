@@ -30,22 +30,21 @@ main {
 	transition: all 0.2s ease;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (max-width: 768px) {
 	main {
 		max-width: 640px;
 	}
 }
 
-@media only screen and (min-width: 1024px) {
+@media only screen and (max-width: 1024px) {
 	main {
 		max-width: 960px;
 	}
 }
 
-@media only screen and (min-width: 2560px) {
+@media only screen and (max-width: 2560px) {
 	main {
 		max-width: 2048px;
-		
 	}
 }
 
