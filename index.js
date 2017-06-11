@@ -315,6 +315,7 @@ function displayData(data) {
 	}
 	else {
 		console.error('No good data found!');
+		$(".js-result-count").text('No posts found in specified area.');
 	}
 	
 }
@@ -336,6 +337,7 @@ function scrollToResults(){
 			alert('NO MARKER SET!');
 		}
 		else{
+		    $(".js-result-count").text(''); // Clear reults text
 			var queryTarget = $(event.currentTarget).find('.js-query');
 			var query = queryTarget.val();
 			var lat = $(event.currentTarget).find('.js-lat').val();
