@@ -240,7 +240,7 @@ var RESULT_HTML_TEMPLATE = (
   '<div class="result">' +
   	'<div class="js-user-info">' +
   		'<a class="js-profile-picture" href="" target="_blank"></a>' +
-  		    '<div class="js-user-details">' +
+  		'<div class="js-user-details">' +
       		'<a class="js-username" href="" target="_blank"></a><br>' +
       	    '<a class="js-location" href="" target="_blank"></a>' +
   	    '</div>' +
