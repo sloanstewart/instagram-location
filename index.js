@@ -37,8 +37,9 @@ function initMap() {
         var lat = parseFloat(Math.round(marker.getPosition().lat() * 100) / 100).toFixed(7);
         var lng = parseFloat(Math.round(marker.getPosition().lng() * 100) / 100).toFixed(7);
         console.log('Marker set at '+lat+','+lng);
-        $('.js-lat').val(lat);
+        $('.js-lat').val(lat);;
         $('.js-lng').val(lng);
+        $('.search-button').prop('disabled', false);
     }
     
     function addRadius(location){
@@ -152,17 +153,22 @@ function scrollToResults(){
 
 	$('.js-search-form').submit(function(event) {
 		event.preventDefault();
-		var queryTarget = $(event.currentTarget).find('.js-query');
-		var query = queryTarget.val();
-		var lat = $(event.currentTarget).find('.js-lat').val();
-		var lng = $(event.currentTarget).find('.js-lng').val();
-		var rad = $(event.currentTarget).find('.js-radius').val();
-		// clear out the input
-		queryTarget.val("");
-		// clear out search results
-		$('.js-search-results').empty();
-		getDataFromApi(query, lat, lng, rad, displayData);
-		scrollToResults();
+		if (marker === null){
+			alert('NO MARKER SET!');
+		}
+		else{
+			var queryTarget = $(event.currentTarget).find('.js-query');
+			var query = queryTarget.val();
+			var lat = $(event.currentTarget).find('.js-lat').val();
+			var lng = $(event.currentTarget).find('.js-lng').val();
+			var rad = $(event.currentTarget).find('.js-radius').val();
+			// clear out the input
+			queryTarget.val("");
+			// clear out search results
+			$('.js-search-results').empty();
+			getDataFromApi(query, lat, lng, rad, displayData);
+			scrollToResults();
+		}
 	});
   	$('.js-nextpage').unbind().click(function(){
 		console.log('[More Results]');
