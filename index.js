@@ -80,6 +80,7 @@ var RESULT_HTML_TEMPLATE = (
   '<div class="result">' +
   	'<div class="js-user-info">' +
   		'<a class="js-profile-picture" href="" target="_blank"></a><a class="js-username" href="" target="_blank"></a>' +
+  			'<a class="js-location" href="" target="_blank"></a>' +
     '</div>' +
     '<div class="js-image" href="" target="_blank"></div>' +
     '<div class="result-info">' +
@@ -109,10 +110,11 @@ function getDataFromApi(query, lat, lng, rad, callback) {
 }
 
 function renderResult(result) {
-  var template = $(RESULT_HTML_TEMPLATE);
-  var date = new Date(parseInt(result.created_time, 10)*1000);
-  template.find(".js-profile-picture").html('<img class="profile-thumbnail" src='+result.user.profile_picture+'>').attr("href", 'https://www.instagram.com/'+result.user.username);
-  template.find(".js-username").text(result.user.username).attr("href", 'https://www.instagram.com/'+result.user.username);
+    var template = $(RESULT_HTML_TEMPLATE);
+    var date = new Date(parseInt(result.created_time, 10)*1000);
+    template.find(".js-profile-picture").html('<img class="profile-thumbnail" src='+result.user.profile_picture+'>').attr("href", 'https://www.instagram.com/'+result.user.username);
+    template.find(".js-username").text(result.user.username).attr("href", 'https://www.instagram.com/'+result.user.username);
+    template.find(".js-location").text(result.location.name).attr("href", 'https://www.instagram.com/explore/locations/'+result.location.id);
 	template.find(".js-date").text((date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear());
 	if (result.type === 'video'){
 		template.find(".js-image").html("<video controls loop class=video width=100% type=video/mp4 poster='"+result.images.standard_resolution.url+"' src='"+result.videos.standard_resolution.url+"'></video>");
