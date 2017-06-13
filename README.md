@@ -1,4 +1,4 @@
-# ~ I N S T A G R A M  L O C A T I O N ~
+# Instagram Location
 Search for posts on *Instagram* based on a location selected via *Google Maps*.
 
 ## Heads Up
