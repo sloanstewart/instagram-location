@@ -30,7 +30,6 @@ main {
 	transition: all 0.2s ease;
 }
 
-
 h1 {
 	font-size: 1.8em;
 	padding: 0;
@@ -59,9 +58,6 @@ h2 {
   left: 0;
   width: 100% !important;
   height: 100% !important;
-}
-
-.js-search-form {
 }
 
 .textfield-group {
@@ -216,19 +212,6 @@ button:disabled {
 	box-shadow: none;
 }
 
-.login-button {
-	margin: 2em;
-	color:#fafafa;
-	background:rgb(0, 188, 212);
-}
-
-.login-button:focus:enabled, .login-button:hover:enabled {
-	color:#fafafa;
-	background:rgb(0, 188, 212);
-	transform: scale(1.015);
-	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
 .result {
 	text-align: left;
 	padding: 0;
@@ -281,35 +264,12 @@ button:disabled {
  margin-right: 1em;
 }
 
-.js-user-details{
-
-}
-
 .js-username {
 	font-weight: bold;
 }
 
 .js-location{
 	font-weight: 100;
-}
-
-
-/* keep iframe video at correct aspect ratio */
-.image-wrapper {
-	position: relative;
-	padding-bottom: 56.25%; /* 16:9 */
-	padding-top: 30px;
-	height: 0;
-	overflow: hidden;
-}
-.image-wrapper iframe,
-.image-wrapper object,
-.image-wrapper embed {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
 }
 
 .sloan {
