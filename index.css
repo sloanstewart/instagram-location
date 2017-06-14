@@ -303,7 +303,7 @@ button:disabled {
 		max-height: 95vh;
 		padding: 1rem;
 		background: #fafafa;
-		overflow: auto;
+		overflow: scroll;
 	}
 	
 	.container-right-large {
