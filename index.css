@@ -292,11 +292,11 @@ button:disabled {
 
 @media screen and (min-width: 1024px){
 	
-	main {
+	.main-large {
 		padding: 2rem;
 	}
 	
-	.container-left {
+	.container-left-large {
 		position: fixed;
 		float: left;
 		max-width: 33.3%;
@@ -306,7 +306,7 @@ button:disabled {
 		overflow: auto;
 	}
 	
-	.container-right {
+	.container-right-large {
 		text-align: center;
 		float: right;
 		width: 65%;

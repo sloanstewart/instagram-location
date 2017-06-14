@@ -312,6 +312,12 @@ function watchButtons() {
     var lng = $('.js-lng').val();
     var rad = $('.js-radius').val();
     getDataFromApi(lat, lng, rad, displayData);
+    // If screen is large, move map to the left and results to the right
+    if (document.documentElement.clientWidth >= 1024) {
+    	$('main').addClass('main-large');
+    	$('.container-left').addClass('container-left-large');
+    	$('.container-right').addClass('container-right-large');
+    }
     // Scroll to results
 		$('html, body').animate({
 		  scrollTop: $('.js-search-results').offset().top
