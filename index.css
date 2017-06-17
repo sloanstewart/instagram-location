@@ -290,8 +290,6 @@ button:disabled {
 }
 
 
-@media screen and (min-width: 1024px){
-	
 	.main-large {
 		padding: 2rem;
 	}
@@ -313,7 +311,6 @@ button:disabled {
 		padding: 1em;
 		overflow: visible;
 	}
-}
 
 @media screen and (min-width: 2048px){
 	body{

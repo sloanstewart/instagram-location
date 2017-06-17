@@ -231,6 +231,12 @@ function initMap() {
 }
 // NOW LEAVING GOOGLE MAP MAGIC!
 
+function radiusUpdate(val) { // Displays radius value as miles
+	var miles = Math.round(val * 0.000621371); // one mile in meters
+	$('#js-radius-val').val(miles);
+	radius.setRadius(Number(val));
+}
+
 var API_URL = 'https://api.instagram.com/v1/media/search';
 var RESULT_HTML_TEMPLATE = (
   '<div class="result">' +
@@ -304,6 +310,21 @@ function displayData(data) {
 	}
 }
 
+function changeLayout() {
+  console.log('changing layout');
+  // If screen is large, move map to the left and results to the right
+  if (document.body.clientWidth >= 1024) {
+  	$('main').addClass('main-large');
+  	$('.container-left').addClass('container-left-large');
+  	$('.container-right').addClass('container-right-large');
+  }
+  else if (document.body.clientWidth < 1024){
+    $('main').removeClass('main-large');
+  	$('.container-left').removeClass('container-left-large');
+  	$('.container-right').removeClass('container-right-large');
+  }
+}
+
 function watchButtons() {
   $('.js-search-form').submit(function(event) {
     event.preventDefault();
@@ -312,12 +333,10 @@ function watchButtons() {
     var lng = $('.js-lng').val();
     var rad = $('.js-radius').val();
     getDataFromApi(lat, lng, rad, displayData);
+    
     // If screen is large, move map to the left and results to the right
-    if (document.documentElement.clientWidth >= 1024) {
-    	$('main').addClass('main-large');
-    	$('.container-left').addClass('container-left-large');
-    	$('.container-right').addClass('container-right-large');
-    }
+    // changeLayout();
+    
     // Scroll to results
 		$('html, body').animate({
 		  scrollTop: $('.js-search-results').offset().top
@@ -325,9 +344,5 @@ function watchButtons() {
 	});
 }
 
-$(watchButtons);
-function radiusUpdate(val) { // Displays radius value as miles
-	var miles = Math.round(val * 0.000621371); // one mile in meters
-	$('#js-radius-val').val(miles);
-	radius.setRadius(Number(val));
-}
+  $(watchButtons);
+  // $(window).resize(changeLayout());
